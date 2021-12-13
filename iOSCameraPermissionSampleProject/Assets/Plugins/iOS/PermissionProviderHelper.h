@@ -5,11 +5,15 @@
 @interface PermissionProviderHelper : NSObject {}
 
 - (void) verifyPermission:(NSString *)gameObject withCallback:(NSString *)callback;
+- (void) askPermission:(NSString *)gameObject withCallback:(NSString *)callback;
 
 @end
 
 // MIT License
 // 
+// Copyright (c) 2021 Wonder Partner's
+// www.wonder-partners.com
+//
 // Copyright (c) 2018 Cory Butler
 // www.CoryButler.com
 // 

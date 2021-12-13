@@ -6,49 +6,58 @@ using UnityEngine.UI;
 
 public class UsageSample : MonoBehaviour
 {
-    // Link UI elements in the Inspector.
     [SerializeField] private Button _button;
     [SerializeField] private Text _text;
 
-    public void VerifyPermission()
+    public void AskPermission()
     {
-        Debug.Log("VerifyPermission()");
-
         // Display some sort of thinking message to the user.
-        if (_text != null) _text.text = "Verifying camera permission...";
-        else Debug.Log("Link UI Text in the Inspector.");
+        _text.text = "Asking camera permission...";
 
         // Disable the button while verifying permission.
-        if (_button != null) _button.interactable = false;
-        else Debug.Log("Link UI Button in the Inspector.");
+        _button.interactable = false;
 
         // Use native UI to request camera permission.
-        iOSCameraPermission.VerifyPermission(gameObject.name, "SampleCallback");
+        iOSCameraPermission.VerifyPermission(gameObject.name, nameof(AskCallback));
     }
 
-    private void SampleCallback(string permissionWasGranted)
+    public void VerifyPermission()
+    {
+        iOSCameraPermission.VerifyPermission(gameObject.name, nameof(VerifyCallback));
+    }
+
+    void AskCallback(string permissionWasGranted)
     {
         Debug.Log("Callback.permissionWasGranted = " + permissionWasGranted);
-        
+
         if (permissionWasGranted == "true")
         {
             // You can now use the device camera.
-            if (_text != null) _text.text = "You can now use the camera";
+            _text.text = "You can now use the camera";
         }
         else
         {
             // You cannot use the device camera.  You may want to display a message to the user
             // about changing the camera permission in the Settings app.
-            if (_text != null) _text.text = "Please active camera access in Settings.";
+            _text.text = "Please active camera access in Settings.";
 
             // You may want to re-enable the button to display the Settings message again.
-            if (_button != null) _button.interactable = true;
+            _button.interactable = true;
         }
+    }
+
+    void VerifyCallback(string authorizationStatus)
+    {
+        Debug.Log($"Authorization status: {authorizationStatus}");
+        _text.text = authorizationStatus;
     }
 }
 
 // MIT License
-// 
+//
+// Copyright (c) 2021 Wonder Partner's
+// www.wonder-partners.com
+//
 // Copyright (c) 2018 Cory Butler
 // www.CoryButler.com
 // 

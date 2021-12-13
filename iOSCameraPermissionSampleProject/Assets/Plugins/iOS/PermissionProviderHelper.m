@@ -1,7 +1,8 @@
 #import "PermissionProviderHelper.h"
+#import <AVFoundation/AVFoundation.h>
 
 @implementation PermissionProviderHelper
-- (void) verifyPermission:(NSString *)NSGameObject withCallback:(NSString *)NSCallback
+- (void) askPermission:(NSString *)NSGameObject withCallback:(NSString *)NSCallback
 {
 	// if (iOS >= 7) ask for camera access;
     if ([AVCaptureDevice respondsToSelector:@selector(requestAccessForMediaType:completionHandler:)]) {
@@ -21,10 +22,34 @@
     }
 }
 
+- (void) verifyPermission:(NSString *)NSGameObject withCallback:(NSString *)NSCallback
+{
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+
+    if (authStatus == AVAuthorizationStatusAuthorized) {
+        UnitySendMessage(([NSGameObject cStringUsingEncoding:NSUTF8StringEncoding]),
+                        ([NSCallback cStringUsingEncoding:NSUTF8StringEncoding]), "Authorized");
+    }
+    else if (authStatus == AVAuthorizationStatusDenied) {
+        UnitySendMessage(([NSGameObject cStringUsingEncoding:NSUTF8StringEncoding]),
+                        ([NSCallback cStringUsingEncoding:NSUTF8StringEncoding]), "Denied");
+    }
+    else if (authStatus == AVAuthorizationStatusNotDetermined) {
+        UnitySendMessage(([NSGameObject cStringUsingEncoding:NSUTF8StringEncoding]),
+                        ([NSCallback cStringUsingEncoding:NSUTF8StringEncoding]), "NotDetermined");
+    }
+    else if (authStatus == AVAuthorizationStatusRestricted) {
+        UnitySendMessage(([NSGameObject cStringUsingEncoding:NSUTF8StringEncoding]),
+                        ([NSCallback cStringUsingEncoding:NSUTF8StringEncoding]), "Restricted");
+    }    
+}
 @end
 
 // MIT License
 // 
+// Copyright (c) 2021 Wonder Partner's
+// www.wonder-partners.com
+//
 // Copyright (c) 2018 Cory Butler
 // www.CoryButler.com
 // 

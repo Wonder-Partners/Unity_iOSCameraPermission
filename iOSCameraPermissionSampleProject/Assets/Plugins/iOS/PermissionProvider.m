@@ -9,8 +9,20 @@ extern void _verifyPermission(const char* gameObject, const char* callback)
 	[permissionProviderHelper verifyPermission:NSGameObject withCallback:NSCallback];
 }
 
+extern void _askPermission(const char* gameObject, const char* callback)
+{
+    NSString *NSGameObject = [[NSString alloc] initWithUTF8String:gameObject];
+    NSString *NSCallback = [[NSString alloc] initWithUTF8String:callback];
+    
+	PermissionProviderHelper* permissionProviderHelper = [[PermissionProviderHelper alloc] init];
+	[permissionProviderHelper askPermission:NSGameObject withCallback:NSCallback];
+}
+
 // MIT License
 // 
+// Copyright (c) 2021 Wonder Partner's
+// www.wonder-partners.com
+//
 // Copyright (c) 2018 Cory Butler
 // www.CoryButler.com
 // 

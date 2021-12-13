@@ -4,8 +4,10 @@ using System.Runtime.InteropServices;
 
 public static class iOSCameraPermission
 {
-
 #if UNITY_IOS && !UNITY_EDITOR
+    [DllImport("__Internal")]
+    extern static private void _verifyPermission(string gameObject, string callback);
+
     [DllImport("__Internal")]
     extern static private void _verifyPermission(string gameObject, string callback);
 #endif
@@ -16,10 +18,20 @@ public static class iOSCameraPermission
         _verifyPermission(gameObjectName, callbackName);
 #endif
     }
+
+    public static void AskPermission(string gameObjectName, string callbackName)
+    {
+#if UNITY_IOS && !UNITY_EDITOR
+        _askPermission(gameObjectName, callbackName);
+#endif
+    }
 }
 
 // MIT License
 // 
+// Copyright (c) 2021 Wonder Partner's
+// www.wonder-partners.com
+//
 // Copyright (c) 2018 Cory Butler
 // www.CoryButler.com
 // 
