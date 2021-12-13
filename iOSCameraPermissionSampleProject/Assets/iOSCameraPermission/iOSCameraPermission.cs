@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 #endif
 
-public static class iOSCameraPermission
+public static class IOSCameraPermission
 {
 #if UNITY_IOS && !UNITY_EDITOR
     [DllImport("__Internal")]

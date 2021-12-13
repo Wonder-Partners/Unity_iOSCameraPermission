@@ -18,12 +18,12 @@ public class UsageSample : MonoBehaviour
         _button.interactable = false;
 
         // Use native UI to request camera permission.
-        iOSCameraPermission.AskPermission(gameObject.name, nameof(AskCallback));
+        IOSCameraPermission.AskPermission(gameObject.name, nameof(AskCallback));
     }
 
     public void VerifyPermission()
     {
-        iOSCameraPermission.VerifyPermission(gameObject.name, nameof(VerifyCallback));
+        IOSCameraPermission.VerifyPermission(gameObject.name, nameof(VerifyCallback));
     }
 
     void AskCallback(string permissionWasGranted)
