@@ -1,9 +1,7 @@
 {
     "name": "Unity.IOSCameraPermission",
     "references": [],
-    "includePlatforms": [
-        "iOS"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": true,
     "overrideReferences": false,

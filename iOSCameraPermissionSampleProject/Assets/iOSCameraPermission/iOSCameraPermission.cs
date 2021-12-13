@@ -6,7 +6,7 @@ public static class IOSCameraPermission
 {
 #if UNITY_IOS && !UNITY_EDITOR
     [DllImport("__Internal")]
-    extern static private void _verifyPermission(string gameObject, string callback);
+    extern static private void _askPermission(string gameObject, string callback);
 
     [DllImport("__Internal")]
     extern static private void _verifyPermission(string gameObject, string callback);
